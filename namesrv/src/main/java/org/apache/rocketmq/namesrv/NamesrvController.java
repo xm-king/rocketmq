@@ -88,7 +88,7 @@ public class NamesrvController {
         //注册处理器
         this.registerProcessor();
 
-        //启动定时任务
+        //每10s扫描一次Broker，移除处于非激活状态的Broker
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override
@@ -97,6 +97,7 @@ public class NamesrvController {
             }
         }, 5, 10, TimeUnit.SECONDS);
 
+        //每10min打印配置
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override

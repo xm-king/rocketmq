@@ -79,7 +79,9 @@ public class NamesrvStartup {
             return null;
         }
 
+        //业务参数
         final NamesrvConfig namesrvConfig = new NamesrvConfig();
+        //网络参数
         final NettyServerConfig nettyServerConfig = new NettyServerConfig();
         //默认端口
         nettyServerConfig.setListenPort(9876);
@@ -145,6 +147,7 @@ public class NamesrvStartup {
             System.exit(-3);
         }
 
+        //注册一个JVM钩子函数，在JVM进程关闭之前，关闭controller相关资源
         Runtime.getRuntime().addShutdownHook(new ShutdownHookThread(log, new Callable<Void>() {
             @Override
             public Void call() throws Exception {

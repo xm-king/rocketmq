@@ -50,14 +50,15 @@ public class RouteInfoManager {
     private static final InternalLogger log = InternalLoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);
     private final static long BROKER_CHANNEL_EXPIRED_TIME = 1000 * 60 * 2;
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
-    //topic的队列分布
+    //topic 消息队列路由信息
     private final HashMap<String/* topic */, List<QueueData>> topicQueueTable;
-    //broker的具体信息
+    //broker的基础信息
     private final HashMap<String/* brokerName */, BrokerData> brokerAddrTable;
     //broker集群信息
     private final HashMap<String/* clusterName */, Set<String/* brokerName */>> clusterAddrTable;
     //broker存活信息
     private final HashMap<String/* brokerAddr */, BrokerLiveInfo> brokerLiveTable;
+    //FilterServer列表
     private final HashMap<String/* brokerAddr */, List<String>/* Filter Server */> filterServerTable;
 
     public RouteInfoManager() {

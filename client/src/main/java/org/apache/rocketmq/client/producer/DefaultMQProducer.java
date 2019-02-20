@@ -59,6 +59,7 @@ import org.apache.rocketmq.remoting.netty.NettyRemotingClient;
  * and used among multiple threads context.
  * </p>
  */
+//默认的MQ消息发送端
 public class DefaultMQProducer extends ClientConfig implements MQProducer {
 
     private final InternalLogger log = ClientLogger.getLog();
@@ -66,6 +67,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
     /**
      * Wrapping internal implementations for virtually all methods presented in this class.
      */
+    //内部实现
     protected final transient DefaultMQProducerImpl defaultMQProducerImpl;
 
     /**
@@ -78,26 +80,31 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      *
      * See {@linktourl http://rocketmq.apache.org/docs/core-concept/} for more discussion.
      */
+    //消费者分组
     private String producerGroup;
 
     /**
      * Just for testing or demo program
      */
+    //自动创建topic
     private String createTopicKey = MixAll.AUTO_CREATE_TOPIC_KEY_TOPIC;
 
     /**
      * Number of queues to create per default topic.
      */
+    //默认的topic队列数量
     private volatile int defaultTopicQueueNums = 4;
 
     /**
      * Timeout for sending messages.
      */
+    //发送超时时间
     private int sendMsgTimeout = 3000;
 
     /**
      * Compress message body threshold, namely, message body larger than 4k will be compressed on default.
      */
+    //压缩Message Body的阈值
     private int compressMsgBodyOverHowmuch = 1024 * 4;
 
     /**
@@ -106,6 +113,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      *
      * This may potentially cause message duplication which is up to application developers to resolve.
      */
+    //重试次数
     private int retryTimesWhenSendFailed = 2;
 
     /**
@@ -227,6 +235,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @throws MQClientException if there is any unexpected error.
      */
     @Override
+    //启动生产者实例
     public void start() throws MQClientException {
         this.defaultMQProducerImpl.start();
         if (null != traceDispatcher) {

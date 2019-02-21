@@ -67,6 +67,7 @@ public class DefaultMessageStore implements MessageStore {
     // CommitLog
     private final CommitLog commitLog;
 
+    //broker上的topic的消息队列分布
     private final ConcurrentMap<String/* topic */, ConcurrentMap<Integer/* queueId */, ConsumeQueue>> consumeQueueTable;
 
     private final FlushConsumeQueueService flushConsumeQueueService;
@@ -308,6 +309,7 @@ public class DefaultMessageStore implements MessageStore {
             return new PutMessageResult(PutMessageStatus.SERVICE_NOT_AVAILABLE, null);
         }
 
+        //SLAVE禁止写入
         if (BrokerRole.SLAVE == this.messageStoreConfig.getBrokerRole()) {
             long value = this.printTimes.getAndIncrement();
             if ((value % 50000) == 0) {
@@ -1710,6 +1712,7 @@ public class DefaultMessageStore implements MessageStore {
         }
     }
 
+    //日志重放服务
     class ReputMessageService extends ServiceThread {
 
         private volatile long reputFromOffset = 0;

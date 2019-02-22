@@ -36,7 +36,9 @@ public class RebalanceService extends ServiceThread {
     public void run() {
         log.info(this.getServiceName() + " service started");
 
+        //启动负载均衡任务，进入到死循环模式
         while (!this.isStopped()) {
+            //每20S等待一次
             this.waitForRunning(waitInterval);
             this.mqClientFactory.doRebalance();
         }

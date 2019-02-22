@@ -35,6 +35,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.protocol.body.ProcessQueueInfo;
 
 /**
+ * 队列消费快照
  * Queue consumption snapshot
  */
 public class ProcessQueue {
@@ -55,10 +56,15 @@ public class ProcessQueue {
     private final AtomicLong tryUnlockTimes = new AtomicLong(0);
     private volatile long queueOffsetMax = 0L;
     private volatile boolean dropped = false;
+    //最后一次拉取消息时间
     private volatile long lastPullTimestamp = System.currentTimeMillis();
+    //最后一次消费消息时间
     private volatile long lastConsumeTimestamp = System.currentTimeMillis();
+    //是否锁定
     private volatile boolean locked = false;
+    //最后一次锁定时间
     private volatile long lastLockTimestamp = System.currentTimeMillis();
+    //是否继续消费
     private volatile boolean consuming = false;
     private volatile long msgAccCnt = 0;
 

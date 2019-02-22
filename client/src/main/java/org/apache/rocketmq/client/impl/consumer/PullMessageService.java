@@ -29,8 +29,11 @@ import org.apache.rocketmq.common.utils.ThreadUtils;
 
 public class PullMessageService extends ServiceThread {
     private final InternalLogger log = ClientLogger.getLog();
+    //拉取消息请求队列
     private final LinkedBlockingQueue<PullRequest> pullRequestQueue = new LinkedBlockingQueue<PullRequest>();
+    //MQClient 实例对象
     private final MQClientInstance mQClientFactory;
+    //定时任务线程池，用于延迟提交拉取请求
     private final ScheduledExecutorService scheduledExecutorService = Executors
         .newSingleThreadScheduledExecutor(new ThreadFactory() {
             @Override
@@ -43,6 +46,7 @@ public class PullMessageService extends ServiceThread {
         this.mQClientFactory = mQClientFactory;
     }
 
+    //延迟执行
     public void executePullRequestLater(final PullRequest pullRequest, final long timeDelay) {
         if (!isStopped()) {
             this.scheduledExecutorService.schedule(new Runnable() {
@@ -56,6 +60,7 @@ public class PullMessageService extends ServiceThread {
         }
     }
 
+    //立即执行
     public void executePullRequestImmediately(final PullRequest pullRequest) {
         try {
             //将pullRequest投入到队列
@@ -65,6 +70,7 @@ public class PullMessageService extends ServiceThread {
         }
     }
 
+    //执行延迟任务
     public void executeTaskLater(final Runnable r, final long timeDelay) {
         if (!isStopped()) {
             this.scheduledExecutorService.schedule(r, timeDelay, TimeUnit.MILLISECONDS);
@@ -87,6 +93,7 @@ public class PullMessageService extends ServiceThread {
         }
     }
 
+    //服务执行
     @Override
     public void run() {
         log.info(this.getServiceName() + " service started");
@@ -104,6 +111,7 @@ public class PullMessageService extends ServiceThread {
         log.info(this.getServiceName() + " service end");
     }
 
+    //关闭服务
     @Override
     public void shutdown(boolean interrupt) {
         super.shutdown(interrupt);

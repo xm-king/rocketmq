@@ -402,6 +402,7 @@ public abstract class NettyRemotingAbstract {
         final int opaque = request.getOpaque();
 
         try {
+            //响应ResponseFuture
             final ResponseFuture responseFuture = new ResponseFuture(channel, opaque, timeoutMillis, null, null);
             this.responseTable.put(opaque, responseFuture);
             final SocketAddress addr = channel.remoteAddress();
@@ -409,6 +410,7 @@ public abstract class NettyRemotingAbstract {
                 @Override
                 public void operationComplete(ChannelFuture f) throws Exception {
                     if (f.isSuccess()) {
+                        //设置发送数据成功
                         responseFuture.setSendRequestOK(true);
                         return;
                     } else {

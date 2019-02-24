@@ -89,6 +89,7 @@ public class IndexFile {
         return this.mappedFile.destroy(intervalForcibly);
     }
 
+    //将消息索引键与消息偏移量映射关系写入文件
     public boolean putKey(final String key, final long phyOffset, final long storeTimestamp) {
         if (this.indexHeader.getIndexCount() < this.indexNum) {
             int keyHash = indexKeyHashMethod(key);

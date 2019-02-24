@@ -63,23 +63,28 @@ import static org.apache.rocketmq.store.config.BrokerRole.SLAVE;
 public class DefaultMessageStore implements MessageStore {
     private static final InternalLogger log = InternalLoggerFactory.getLogger(LoggerName.STORE_LOGGER_NAME);
 
+    //消息存储配置
     private final MessageStoreConfig messageStoreConfig;
-    // CommitLog
+    // CommitLog实现类
     private final CommitLog commitLog;
 
-    //broker上的topic的消息队列分布
+    //broker上的topic的消息队列分布缓存
     private final ConcurrentMap<String/* topic */, ConcurrentMap<Integer/* queueId */, ConsumeQueue>> consumeQueueTable;
 
+    //消息队列文件flush服务
     private final FlushConsumeQueueService flushConsumeQueueService;
 
     private final CleanCommitLogService cleanCommitLogService;
 
     private final CleanConsumeQueueService cleanConsumeQueueService;
 
+    //索引服务
     private final IndexService indexService;
 
+    //分配MappedFile服务
     private final AllocateMappedFileService allocateMappedFileService;
 
+    //日志重放服务
     private final ReputMessageService reputMessageService;
 
     private final HAService haService;

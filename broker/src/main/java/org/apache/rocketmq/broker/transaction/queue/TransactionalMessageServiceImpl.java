@@ -118,6 +118,7 @@ public class TransactionalMessageServiceImpl implements TransactionalMessageServ
     }
 
     @Override
+    //检查事务消息
     public void check(long transactionTimeout, int transactionCheckMax,
         AbstractTransactionalMessageCheckListener listener) {
         try {

@@ -59,6 +59,7 @@ public class Broker2Client {
         this.brokerController = brokerController;
     }
 
+    //向Producer查询事务的状态
     public void checkProducerTransactionState(
         final String group,
         final Channel channel,

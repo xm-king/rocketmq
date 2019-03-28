@@ -174,6 +174,7 @@ public class RouteInfoManager {
                     }
                 }
 
+                //更新BrokerLiveInfo
                 if (MixAll.MASTER_ID != brokerId) {
                     String masterAddr = brokerData.getBrokerAddrs().get(MixAll.MASTER_ID);
                     if (masterAddr != null) {
@@ -476,6 +477,7 @@ public class RouteInfoManager {
 
             try {
                 try {
+                    //申请写锁
                     this.lock.writeLock().lockInterruptibly();
                     this.brokerLiveTable.remove(brokerAddrFound);
                     this.filterServerTable.remove(brokerAddrFound);

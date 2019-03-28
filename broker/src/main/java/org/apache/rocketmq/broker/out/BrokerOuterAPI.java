@@ -128,11 +128,17 @@ public class BrokerOuterAPI {
         List<String> nameServerAddressList = this.remotingClient.getNameServerAddressList();
         if (nameServerAddressList != null && nameServerAddressList.size() > 0) {
 
+            //心跳包
             final RegisterBrokerRequestHeader requestHeader = new RegisterBrokerRequestHeader();
+            //broker地址
             requestHeader.setBrokerAddr(brokerAddr);
+            //brokerId
             requestHeader.setBrokerId(brokerId);
+            //broker名称
             requestHeader.setBrokerName(brokerName);
+            //cluster名称
             requestHeader.setClusterName(clusterName);
+            //master地址
             requestHeader.setHaServerAddr(haServerAddr);
             requestHeader.setCompressed(compressed);
 

@@ -101,8 +101,8 @@ public class NamesrvStartup {
                 in.close();
             }
         }
-
         if (commandLine.hasOption('p')) {
+            //打印配置，退出
             InternalLogger console = InternalLoggerFactory.getLogger(LoggerName.NAMESRV_CONSOLE_NAME);
             MixAll.printObjectProperties(console, namesrvConfig);
             MixAll.printObjectProperties(console, nettyServerConfig);

@@ -1160,6 +1160,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
         }
         Validators.checkMessage(msg, this.defaultMQProducer);
 
+        //添加属性，表明消息是事务消息以及消息所属消费者分组
         SendResult sendResult = null;
         MessageAccessor.putProperty(msg, MessageConst.PROPERTY_TRANSACTION_PREPARED, "true");
         MessageAccessor.putProperty(msg, MessageConst.PROPERTY_PRODUCER_GROUP, this.defaultMQProducer.getProducerGroup());
@@ -1173,6 +1174,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
         Throwable localException = null;
         switch (sendResult.getSendStatus()) {
             case SEND_OK: {
+                //发送成功
                 try {
                     if (sendResult.getTransactionId() != null) {
                         msg.putUserProperty("__transactionId__", sendResult.getTransactionId());
@@ -1212,6 +1214,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
         }
 
         try {
+            //结束事务，提交/回滚
             this.endTransaction(sendResult, localTransactionState, localException);
         } catch (Exception e) {
             log.warn("local transaction execute " + localTransactionState + ", but end broker transaction failed", e);

@@ -266,6 +266,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @throws MQClientException if there is any client error.
      */
     @Override
+    //获取topic下所有消息队列
     public List<MessageQueue> fetchPublishMessageQueues(String topic) throws MQClientException {
         return this.defaultMQProducerImpl.fetchPublishMessageQueues(topic);
     }
@@ -287,6 +288,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @throws InterruptedException if the sending thread is interrupted.
      */
     @Override
+    //同步发送消息
     public SendResult send(
         Message msg) throws MQClientException, RemotingException, MQBrokerException, InterruptedException {
         return this.defaultMQProducerImpl.send(msg);
@@ -305,6 +307,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @throws InterruptedException if the sending thread is interrupted.
      */
     @Override
+    //带发送超时功能的同步发送消息接口
     public SendResult send(Message msg,
         long timeout) throws MQClientException, RemotingException, MQBrokerException, InterruptedException {
         return this.defaultMQProducerImpl.send(msg, timeout);
@@ -376,6 +379,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @throws InterruptedException if the sending thread is interrupted.
      */
     @Override
+    //发送到指定的消息队列
     public SendResult send(Message msg, MessageQueue mq)
         throws MQClientException, RemotingException, MQBrokerException, InterruptedException {
         return this.defaultMQProducerImpl.send(msg, mq);
@@ -411,6 +415,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @throws InterruptedException if the sending thread is interrupted.
      */
     @Override
+    //异步发送接口
     public void send(Message msg, MessageQueue mq, SendCallback sendCallback)
         throws MQClientException, RemotingException, InterruptedException {
         this.defaultMQProducerImpl.send(msg, mq, sendCallback);
@@ -603,6 +608,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @return Consume queue offset.
      * @throws MQClientException if there is any client error.
      */
+    //根据时间戳从队列中查找偏移量
     @Override
     public long searchOffset(MessageQueue mq, long timestamp) throws MQClientException {
         return this.defaultMQProducerImpl.searchOffset(mq, timestamp);
@@ -616,6 +622,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @throws MQClientException if there is any client error.
      */
     @Override
+    //查找消息中最大偏移量
     public long maxOffset(MessageQueue mq) throws MQClientException {
         return this.defaultMQProducerImpl.maxOffset(mq);
     }
@@ -628,6 +635,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @throws MQClientException if there is any client error.
      */
     @Override
+    //消息队列中最小偏移量
     public long minOffset(MessageQueue mq) throws MQClientException {
         return this.defaultMQProducerImpl.minOffset(mq);
     }
@@ -672,6 +680,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @throws MQClientException if there is any client error.
      * @throws InterruptedException if the thread is interrupted.
      */
+    //根据消息偏移量查找消息
     @Override
     public QueryResult queryMessage(String topic, String key, int maxNum, long begin, long end)
         throws MQClientException, InterruptedException {
@@ -690,6 +699,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @throws InterruptedException if the sending thread is interrupted.
      */
     @Override
+    //根据topic和MsgId查找消息
     public MessageExt viewMessage(String topic,
         String msgId) throws RemotingException, MQBrokerException, InterruptedException, MQClientException {
         try {
